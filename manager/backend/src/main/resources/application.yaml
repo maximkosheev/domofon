@@ -1,0 +1,15 @@
+server:
+  port: 8090
+  servlet:
+    context-path: /manager
+spring:
+  datasource:
+    jndi-name: jdbc/domofon
+  jpa:
+    hibernate:
+      ddl-auto: none
+
+jwt:
+  token:
+    secret: roottppy
+    expired:3600000
