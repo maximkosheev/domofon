@@ -12,6 +12,7 @@ import ru.monsterdev.domofon.domain.OpUser;
 import ru.monsterdev.domofon.domain.QOpUser;
 import ru.monsterdev.domofon.model.AppUser;
 import ru.monsterdev.domofon.repositories.UserRepository;
+import ru.monsterdev.domofon.utils.RoleUtils;
 
 @Service
 @Slf4j
@@ -24,9 +25,9 @@ public class UsersService implements UserDetailsService {
     OpUser opUser = findByUsername(username);
     if (opUser == null)
       throw new UsernameNotFoundException(String.format("User %s not found", username));
-    AppUser appUser = new AppUser();
-    //TODO: Заполнить поля AppUser
-    return appUser;
+    return new AppUser(opUser.getUsername(), opUser.getPassword(),
+        true,  !opUser.getLocked(), true, opUser.getEnabled(),
+        RoleUtils.fromRoles(opUser.getRoles()));
   }
 
   public OpUser findByUsername(String username) {

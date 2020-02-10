@@ -1,0 +1,15 @@
+<div class="sidebar-wrapper">
+    <div class="logo">
+        <a href="#" class="simple-text">
+            ООО "Цифрал-СБ"
+        </a>
+    </div>
+    <ul class="menu-items">
+        <li *ngFor="let menuItem of menuItems" class="{{menuItem.class}}" routerLinkActive="active">
+            <a [routerLink]="[menuItem.path]">
+                <i class="{{menuItem.icon}}"></i>
+                <p>{{menuItem.title}}</p>
+            </a>
+        </li> 
+    </ul>
+</div>  

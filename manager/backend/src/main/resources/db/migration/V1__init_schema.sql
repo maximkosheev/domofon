@@ -10,6 +10,7 @@ create table op_user (
   username character varying(100),
   password character varying(250),
   locked boolean default false,
+  enabled boolean default true,
   create_dt timestamp with time zone default now() not null
 );
 
@@ -33,6 +34,7 @@ alter table user_role add constraint fk_user_roles_role foreign key (role_id) re
 
 create table op_client (
 	id bigint not null primary key,
+	user_id bigint,
 	account character varying(25) not null,
 	device boolean not null default true,
 	switch_off boolean not null default false,
@@ -52,7 +54,10 @@ create table op_client (
 
 create unique index inx_client_account on op_client (account);
 
+alter table op_client add constraint fk_client_user foreign key (user_id) references op_user(id);
+
 comment on table op_client is 'Таблица клиентов';
+comment on column op_client.user_id is 'Идентификатор пользователя системы (если для клиента создан пользователь)';
 comment on column op_client.account is 'Лицевой счет';
 comment on column op_client.device is 'Признак установки квартирного автомата';
 comment on column op_client.switch_off is 'Признак отключенного квартирного автомата';

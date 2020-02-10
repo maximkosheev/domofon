@@ -1,10 +1,15 @@
 server:
   port: 8090
   servlet:
-    context-path: /manager
+    context-path: /domofon
 spring:
   datasource:
-    jndi-name: jdbc/domofon
+    url: jdbc:postgresql://localhost:5432/domofon
+    username: postgres
+    password: roottppy
+    driver-class-name: org.postgresql.Driver
+
+  #jndi-name: jdbc/domofon
   jpa:
     hibernate:
       ddl-auto: none
@@ -12,4 +17,4 @@ spring:
 jwt:
   token:
     secret: roottppy
-    expired:3600000
+    expired: 3600000

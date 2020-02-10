@@ -1,0 +1,42 @@
+.sidebar-wrapper {
+    position: relative;
+    z-index: 4;
+}
+
+.logo {
+    padding: 10px 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.logo .simple-text {
+    text-transform: uppercase;
+    padding: 5px 0px 5px 15px;
+    display: block;
+    text-align: left;
+    line-height: 30px;
+}
+
+.menu-items {
+    margin-top: 20px;
+    list-style: none;
+    padding-left: 0;
+}
+
+.menu-items > li > a {
+    display: block;
+    color: #fff;
+    margin: 5px 15px;
+    padding: 10px 15px;
+    border-radius: 4px;
+    opacity: .86;
+}
+
+.menu-items > li > a > p {
+    margin-bottom: 0;
+}
+
+.menu-items > li.active > a {
+    color: #fff;
+    opacity: 1;
+    background: rgba(255, 255, 255, .33);
+}
