@@ -3,15 +3,17 @@
     <div class="row">
         <div class="col-md-6 login-form">
             <h3>АРМ менеджера (вход)</h3>
-            <form>
+            <form id="form-login" (ngSubmit)="signin()" role="form">
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Имя пользователя *" value="" />
+                    <input type="text" class="form-control" placeholder="Имя пользователя *" name="username"
+                           [(ngModel)]="model.username"/>
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control" placeholder="Пароль *" value="" />
+                    <input type="password" class="form-control" placeholder="Пароль *" name="password"
+                           [(ngModel)]="model.password" />
                 </div>
                 <div class="form-group">
-                    <input type="submit" class="primary-btn banner-btn" value="Вход" />
+                    <input type="submit" class="btn btn-outline-primary" value="Вход" />
                 </div>
             </form>
         </div>

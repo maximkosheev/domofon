@@ -1,55 +1,56 @@
 .navbar {
-    background-color: rgba(255, 255, 255, 0.96);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    border: 0;
-    font-size: 16px;
-    border-radius: 0;
-    justify-content: flex-start;
+  background-color: rgba(255, 255, 255, 0.96);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  border: 0;
+  font-size: 16px;
+  border-radius: 0;
+  justify-content: flex-start;
 }
 
 .navbar-header {
-    margin-right: 0;
-    margin-left: 0;
+  margin-right: 15px;
+  margin-left: 0;
 }
 
 .navbar-title {
-    color: #777;
-    font-size: 20px;
-    font-weight: 400;
-    margin: 5px 0px;
+  color: #777;
+  font-size: 20px;
+  font-weight: 400;
+  margin: 5px 0px;
 }
 
 .notification {
-    position: absolute;
-    background-color: #FB404B;
-    text-align: center;
-    border-radius: 10px;
-    min-width: 18px;
-    padding: 0 5px;
-    height: 18px;
-    font-size: 12px;
-    color: #FFFFFF;
-    font-weight: bold;
-    line-height: 18px;
-    top: -3px;
-    left: 2px;
+  position: absolute;
+  background-color: #FB404B;
+  text-align: center;
+  border-radius: 10px;
+  min-width: 18px;
+  padding: 0 5px;
+  height: 18px;
+  font-size: 12px;
+  color: #FFFFFF;
+  font-weight: bold;
+  line-height: 18px;
+  top: -3px;
+  left: 2px;
 }
 
 .nav {
-    list-style: none;
+  list-style: none;
 }
 
 .nav > li {
-    position: relative;
-    display: block;
+  position: relative;
+  display: block;
+  margin-right: 7px;
 }
 
 .nav > li > a {
-    margin: 3px 10px;
-    color: #777;
-    font-size: 20px;
+  margin: 3px 10px;
+  color: #777;
+  font-size: 20px;
 }
 
 .navbar-right {
-    margin-left: auto;
+  margin-left: auto;
 }
