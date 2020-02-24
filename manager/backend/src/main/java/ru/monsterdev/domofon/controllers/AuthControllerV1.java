@@ -11,6 +11,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +21,6 @@ import ru.monsterdev.domofon.dto.AuthenticationRequestDto;
 import ru.monsterdev.domofon.security.JwtTokenProvider;
 import ru.monsterdev.domofon.services.UsersService;
 
-@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
 @RequestMapping(value = "/api/v1/auth")
 @Slf4j
@@ -31,6 +31,11 @@ public class AuthControllerV1 {
   private UsersService usersService;
   @Autowired
   private JwtTokenProvider jwtTokenProvider;
+
+  @GetMapping("login")
+  public ResponseEntity login() {
+    return ResponseEntity.ok("");
+  }
 
   @PostMapping("login")
   public ResponseEntity login(@RequestBody AuthenticationRequestDto requestDto) {

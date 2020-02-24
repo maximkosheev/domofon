@@ -19,6 +19,7 @@ export class AuthComponent implements OnInit {
 
   ngOnInit() {
     this.model.rememberMe = true;
+    this.auth.init().subscribe();
   }
 
   signin() {

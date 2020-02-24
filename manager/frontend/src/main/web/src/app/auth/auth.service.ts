@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
-import {CustomEncoder} from "./custom-encoder";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {map} from 'rxjs/operators';
 import { AppSettings} from "../app-settings";
 
@@ -9,6 +8,10 @@ export class AuthService {
 
   constructor(private http: HttpClient) {
     //
+  }
+
+  init() {
+    return this.http.get(AppSettings.API_ENDPOINT + "/auth/login", {withCredentials: true});
   }
 
   login(username: string, password: string, rememberMe: boolean) {

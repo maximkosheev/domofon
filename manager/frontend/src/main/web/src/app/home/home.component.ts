@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {HomeService} from "./home.service";
 
 @Component({
   selector: 'app-home',
@@ -8,9 +9,22 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  version: string = '';
+
+  constructor(
+    private homeService: HomeService) {
+  }
 
   ngOnInit() {
+    this.homeService.version().subscribe(
+      value => {
+        this.version = value.version;
+      },
+      error => {
+        console.log(error);
+        this.version = 'Error';
+      }
+    )
   }
 
 }

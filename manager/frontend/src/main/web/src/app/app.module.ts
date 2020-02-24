@@ -8,8 +8,11 @@ import {DashboardComponent} from './dashboard/dashboard.component';
 import {HomeComponent} from './home/home.component';
 import {AuthService} from './auth/auth.service';
 import {DashboardModule} from './dashboard/dashboard.module';
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule, HttpClientXsrfModule} from "@angular/common/http";
 import {FormsModule} from "@angular/forms";
+import {HomeService} from "./home/home.service";
+import {ClientsService} from "./clients/clients.service";
+import {HttpXsrfInterceptor} from "./HttpXsrfInterceptor";
 
 @NgModule({
   declarations: [
@@ -24,8 +27,14 @@ import {FormsModule} from "@angular/forms";
     FormsModule,
     AppRoutingModule,
     DashboardModule,
+    HttpClientXsrfModule
   ],
-  providers: [AuthService],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: HttpXsrfInterceptor, multi: true},
+    AuthService,
+    HomeService,
+    ClientsService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
