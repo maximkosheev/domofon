@@ -1,3 +1,3 @@
 export class AppSettings {
-  public static API_ENDPOINT = "http://localhost:8090/domofon/api/v1"
+  public static API_ENDPOINT = "/api/v1"
 }

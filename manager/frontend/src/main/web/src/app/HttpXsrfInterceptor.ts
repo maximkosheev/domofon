@@ -13,9 +13,7 @@ export class HttpXsrfInterceptor implements HttpInterceptor {
     let requestMethod: string = req.method.toLowerCase();
 
     if (requestMethod && (requestMethod === 'post' || requestMethod === 'delete' || requestMethod === 'put')) {
-      req = req.clone({
-        withCredentials: true
-      });
+      req = req.clone({withCredentials: true});
       let token = this.tokenExtractor.getToken();
       if (token !== null && !req.headers.has(headerName)) {
         req = req.clone({
@@ -23,7 +21,6 @@ export class HttpXsrfInterceptor implements HttpInterceptor {
         });
       }
     }
-    console.log(req);
     return next.handle(req);
   }
 }
