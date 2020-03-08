@@ -16,9 +16,9 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.data.annotation.CreatedDate;
 
-@Entity
 @Data
 @EqualsAndHashCode(callSuper = true)
+@Entity
 @Table(name = "op_user")
 @SequenceGenerator(name = "default_gen", sequenceName = "user_seq", allocationSize = 1)
 public class OpUser extends AbstractEntity<Long> {
