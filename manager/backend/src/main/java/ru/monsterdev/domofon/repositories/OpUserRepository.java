@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import ru.monsterdev.domofon.domain.OpUser;
 
 @Repository
-public interface UserRepository extends JpaRepository<OpUser, Long>, QuerydslPredicateExecutor<OpUser> {
+public interface OpUserRepository extends JpaRepository<OpUser, Long>, QuerydslPredicateExecutor<OpUser> {
 
 }

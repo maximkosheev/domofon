@@ -6,13 +6,13 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import ru.monsterdev.domofon.domain.OpClient;
-import ru.monsterdev.domofon.repositories.ClientRepository;
+import ru.monsterdev.domofon.repositories.OpClientRepository;
 import ru.monsterdev.domofon.services.ClientService;
 
 @Service
 public class ClientServiceImpl implements ClientService {
   @Autowired
-  private ClientRepository clientRepository;
+  private OpClientRepository clientRepository;
 
   @Override
   public List<OpClient> findAllClients() {

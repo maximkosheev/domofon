@@ -8,8 +8,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import ru.monsterdev.domofon.config.DomofonContextMemoryDb;
-import ru.monsterdev.domofon.domain.RefCity;
-import ru.monsterdev.domofon.repositories.RefCityRepository;
+import ru.monsterdev.domofon.domain.OpClient;
+import ru.monsterdev.domofon.repositories.OpClientRepository;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = {DomofonContextMemoryDb.class})
@@ -17,11 +17,11 @@ import ru.monsterdev.domofon.repositories.RefCityRepository;
 public class ClientServiceTest {
 
   @Autowired
-  private RefCityRepository cityRepository;
+  private OpClientRepository clientRepository;
 
   @Test
   public void test1() {
-    List<RefCity> cities = cityRepository.findAll();
-    System.out.println(cities);
+    List<OpClient> clients = clientRepository.findAll();
+    System.out.println(clients);
   }
 }

@@ -11,14 +11,14 @@ import org.springframework.stereotype.Service;
 import ru.monsterdev.domofon.domain.OpUser;
 import ru.monsterdev.domofon.domain.QOpUser;
 import ru.monsterdev.domofon.model.AppUser;
-import ru.monsterdev.domofon.repositories.UserRepository;
+import ru.monsterdev.domofon.repositories.OpUserRepository;
 import ru.monsterdev.domofon.utils.RoleUtils;
 
 @Service
 @Slf4j
 public class UsersService implements UserDetailsService {
   @Autowired
-  private UserRepository userRepository;
+  private OpUserRepository userRepository;
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

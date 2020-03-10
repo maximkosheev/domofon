@@ -39,8 +39,8 @@ public class OpClient extends AbstractEntity<Long> {
   @Column(name = "building", length = 5)
   private String building;
 
-  @Column(name = "porch", length = 5)
-  private String porch;
+  @Column(name = "room", length = 5)
+  private String room;
 
   @Column(name = "phone", length = 25)
   private String phone;
