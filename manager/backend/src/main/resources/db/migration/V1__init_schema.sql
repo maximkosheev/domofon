@@ -74,7 +74,7 @@ create table op_client (
 	house character varying(10),
 	letter character varying(5),
 	building character varying(5),
-	porch character varying(5),
+	room character varying(5),
 	phone character varying(25),
 	description text,
 	fsb boolean default true,
@@ -89,7 +89,7 @@ comment on column op_client.street_id is 'Идентификатор улицы 
 comment on column op_client.house is 'Дом';
 comment on column op_client.letter is 'Буква';
 comment on column op_client.building is 'Корпус/Строение';
-comment on column op_client.porch is 'Подъезд';
+comment on column op_client.room is 'Квартира';
 comment on column op_client.phone is 'Телефон';
 comment on column op_client.description is 'Примечание';
 comment on column op_client.fsb is 'Признак передачи данных в ФСБ';
