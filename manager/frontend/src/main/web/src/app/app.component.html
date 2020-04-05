@@ -1,1 +1,18 @@
-<router-outlet></router-outlet>
+<div class="p-grid p-nogutter base-layout">
+  <!-- Логотоп и header приложения -->
+  <div class="p-grid p-nogutter base-layout__header">
+    <div class="p-col-fixed base-layout__header__logo">
+      <a routerLink="/">
+        <img src="/assets/img/logo.svg">
+      </a>
+    </div>
+    <div class="p-col base-layout__header__title">
+      <app-header></app-header>
+    </div>
+  </div>
+
+  <!-- Основная часть окна -->
+  <div class="p-grid p-nogutter base-layout__content">
+    <router-outlet></router-outlet>
+  </div>
+</div>

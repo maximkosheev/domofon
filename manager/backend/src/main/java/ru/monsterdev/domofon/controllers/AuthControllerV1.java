@@ -21,9 +21,9 @@ import ru.monsterdev.domofon.dto.AuthenticationRequestDto;
 import ru.monsterdev.domofon.security.JwtTokenProvider;
 import ru.monsterdev.domofon.services.UsersService;
 
+@Slf4j
 @RestController
 @RequestMapping(value = "/api/v1/auth")
-@Slf4j
 public class AuthControllerV1 {
   @Autowired
   private AuthenticationManager authenticationManager;

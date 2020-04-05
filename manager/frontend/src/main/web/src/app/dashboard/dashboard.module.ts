@@ -1,33 +1,27 @@
-import { NgModule } from "@angular/core";
-import { Routes, RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
-import { ClientsComponent } from '../clients/clients.component';
-import { SidebarComponent } from '../sidebar/sidebar.component';
-import { NavbarComponent } from '../navbar/navbar.component';
+import {NgModule} from "@angular/core";
+import {RouterModule, Routes} from "@angular/router";
+import {AuthGuardService as AuthGuard} from "../auth/auth-guard.service";
+import {AccountsComponent} from "./accounts/accounts.component";
+import {HelpComponent} from "./help/help.component";
 
 const routes: Routes = [
-    {path: '', component: ClientsComponent},
-    {path: 'clients', component: ClientsComponent},
-    {path: '**', redirectTo: ''}
+  {path: '', component: AccountsComponent},
+  {path: 'accounts', component: AccountsComponent},
+  {path: 'help', component: HelpComponent},
+  {path: '**', redirectTo: ''}
 ];
 
 @NgModule({
-    imports: [
-        CommonModule,
-        RouterModule.forChild(routes),
-        FormsModule,
-        NgbDropdownModule,
-    ],
-    declarations:[
-        SidebarComponent,
-        NavbarComponent,
-        ClientsComponent,
-    ],
-    exports: [
-        SidebarComponent,
-        NavbarComponent
-    ]
+  imports: [
+    RouterModule.forChild(routes),
+  ],
+  declarations: [
+    AccountsComponent,
+    HelpComponent
+  ],
+  exports: [],
+  providers: [
+    AuthGuard
+  ]
 })
-export class DashboardModule {}
+export class DashboardModule { }

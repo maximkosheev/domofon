@@ -5,6 +5,8 @@ import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Date;
@@ -41,18 +43,24 @@ public class JwtTokenProvider {
     Claims claims = Jwts.claims().setSubject(username);
     claims.put("roles", getRoleNames(roles));
     Date now = new Date();
-    Date validityTo = new Date(now.getTime() + expired);
+    LocalDateTime validityTo = LocalDateTime
+        .ofInstant(now.toInstant(), ZoneId.systemDefault())
+        .plusDays(1)
+        .withHour(0)
+        .withMinute(0)
+        .withSecond(0);
+    // Токен валидный до конца текущего дня
     return Jwts.builder()
         .setClaims(claims)
         .setIssuedAt(now)
-        .setExpiration(validityTo)
+        .setExpiration(Date.from(validityTo.atZone(ZoneId.systemDefault()).toInstant()))
         .signWith(SignatureAlgorithm.HS256, secret)
         .compact();
   }
 
   public Authentication getAuthentication(String token) {
     UserDetails userDetails = usersService.loadUserByUsername(getUsername(token));
-    return new UsernamePasswordAuthenticationToken(userDetails, userDetails.getAuthorities());
+    return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
   }
 
   public String getUsername(String token) {
@@ -80,7 +88,7 @@ public class JwtTokenProvider {
       }
       return true;
     } catch (JwtException | IllegalArgumentException ex) {
-      throw new JwtAuthenticationException("JWT token is expired on invalid");
+      throw new JwtAuthenticationException("JWT token is expired or invalid");
     }
   }
 

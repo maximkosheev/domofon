@@ -62,44 +62,6 @@ create table ref_street (
 alter table ref_street add constraint fk_ref_street_ref_city foreign key(city_id) references ref_city(id);
 
 ---
---- Создание таблицы "Клиенты"
----
-create sequence op_client_seq start with 1 increment by 1;
-
-create table op_client (
-	id bigint not null default nextval('op_client_seq') primary key,
-	user_id bigint,
-	fio character varying(255),
-	street_id bigint not null,
-	house character varying(10),
-	letter character varying(5),
-	building character varying(5),
-	room character varying(5),
-	phone character varying(25),
-	description text,
-	fsb boolean default true,
-	gorod boolean default true,
-	create_dt timestamp with time zone default now()
-);
-
-comment on table op_client is 'Таблица клиентов';
-comment on column op_client.user_id is 'Идентификатор пользователя системы (если для клиента создан пользователь)';
-comment on column op_client.fio is 'Фамилия Имя Отчество';
-comment on column op_client.street_id is 'Идентификатор улицы из справочника';
-comment on column op_client.house is 'Дом';
-comment on column op_client.letter is 'Буква';
-comment on column op_client.building is 'Корпус/Строение';
-comment on column op_client.room is 'Квартира';
-comment on column op_client.phone is 'Телефон';
-comment on column op_client.description is 'Примечание';
-comment on column op_client.fsb is 'Признак передачи данных в ФСБ';
-comment on column op_client.gorod is 'Признак передачи данных в систему ГОРОД';
-comment on column op_client.create_dt is 'Дата и время регистрации';
-
-alter table op_client add constraint fk_op_client_op_user foreign key (user_id) references op_user(id);
-alter table op_client add constraint fk_op_client_ref_street foreign key(street_id) references ref_street(id);
-
----
 --- Создание таблицы "Домофоны"
 ---
 create sequence op_domofon_seq start with 1 increment by 1;
@@ -107,13 +69,13 @@ create sequence op_domofon_seq start with 1 increment by 1;
 create table op_domofon (
   id bigint not null default nextval('op_domofon_seq') primary key,
   model character varying(15),
-  description text,
   street_id bigint not null,
 	house character varying(10),
 	letter character varying(5),
 	building character varying(5),
 	porch character varying(5),
-	mounting_dt timestamp with time zone default now()
+	mounting_dt timestamp with time zone default now(),
+	description text
 );
 comment on table op_domofon is 'Установленные домофонные аппараты';
 comment on column op_domofon.street_id is 'Идентификатор улицы из справочника';
@@ -122,6 +84,7 @@ comment on column op_domofon.letter is 'Буква';
 comment on column op_domofon.building is 'Корпус/Строение';
 comment on column op_domofon.porch is 'Подъезд';
 comment on column op_domofon.mounting_dt is 'Дата установки';
+comment on column op_domofon.description is 'Примечание';
 
 alter table op_domofon add constraint fk_op_domofon_ref_street foreign key (street_id) references ref_street(id);
 
@@ -132,22 +95,35 @@ create sequence op_account_seq start with 1 increment by 1;
 
 create table op_account (
   id bigint not null default nextval('op_account_seq') primary key,
-  client_id bigint not null,
   domofon_id bigint not null,
   account character varying(25) not null,
+  fio character varying(255),
+  phone character varying(50),
   has_device boolean not null default true,
   device_switch_off boolean not null default false,
-	room character varying(50),
-	con_dt timestamp with time zone default now()
+	flat character varying(50),
+	create_dt timestamp with time zone default now(),
+	con_dt timestamp with time zone,
+	discon_dt timestamp with time zone,
+	fsb boolean default true,
+	gorod boolean default true,
+	description text,
+	CONSTRAINT uk_op_account_account UNIQUE (account)
 );
 
 comment on table op_account is 'Подключение клиентов к домофонным аппаратам';
-comment on column op_account.client_id is 'Идентификатор клиента';
 comment on column op_account.domofon_id is 'Идентификатор домофонного аппарата';
 comment on column op_account.account is 'Лицевой счет';
+comment on column op_account.fio is 'ФИО клиента';
+comment on column op_account.phone is 'Телефон';
 comment on column op_account.has_device is 'Признак установки квартирного автомата';
 comment on column op_account.device_switch_off is 'Признак отключенного квартирного автомата';
-comment on column op_account.room is 'Квартира';
+comment on column op_account.flat is 'Квартира';
+comment on column op_account.create_dt is 'Дата создания аккаунта';
 comment on column op_account.con_dt is 'Дата подключения';
+comment on column op_account.discon_dt is 'Дата отключения';
+comment on column op_account.fsb is 'Признак передачи данных в ФСБ';
+comment on column op_account.gorod is 'Признак передачи данных в систему ГОРОД';
+comment on column op_account.description is 'Примечание';
 
-
+alter table op_account add constraint fk_op_account_op_domofon foreign key(domofon_id) references op_domofon(id);

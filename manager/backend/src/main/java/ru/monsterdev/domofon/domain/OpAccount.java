@@ -17,9 +17,6 @@ import org.springframework.data.annotation.CreatedDate;
 @Table(name = "op_account")
 @SequenceGenerator(name = "default_gen", sequenceName = "op_account_seq", allocationSize = 1)
 public class OpAccount extends AbstractEntity<Long> {
-  @ManyToOne(optional = false)
-  @JoinColumn(name = "client_id")
-  private OpClient client;
 
   @ManyToOne(optional = false)
   @JoinColumn(name = "domofon_id")
@@ -28,16 +25,37 @@ public class OpAccount extends AbstractEntity<Long> {
   @Column(name = "account", length = 25, nullable = false)
   private String account;
 
+  @Column(name = "fio")
+  private String fio;
+
+  @Column(name = "phone")
+  private String phone;
+
   @Column(name = "has_device", nullable = false)
-  private Boolean has_device = true;
+  private Boolean hasDevice = true;
 
   @Column(name = "device_switch_off", nullable = false)
   private Boolean switchOff = false;
 
-  @Column(name = "room", length = 50)
-  private String room;
+  @Column(name = "flat", length = 50)
+  private String flat;
+
+  @Column(name = "con_dt")
+  private LocalDate connectDate;
+
+  @Column(name = "discon_dt")
+  private LocalDate disconnectDate;
 
   @CreatedDate
-  @Column(name = "con_dt")
-  private LocalDate connectionDate;
+  @Column(name = "create_dt")
+  private LocalDate createDate;
+
+  @Column(name = "fsb")
+  private Boolean fsb = true;
+
+  @Column(name = "gorod")
+  private Boolean gorod = true;
+
+  @Column(name = "description")
+  private String description;
 }

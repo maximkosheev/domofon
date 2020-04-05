@@ -1,39 +1,41 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {AuthComponent} from './auth/auth.component';
-import {DashboardComponent} from './dashboard/dashboard.component';
-import {HomeComponent} from './home/home.component';
 import {AuthService} from './auth/auth.service';
-import {DashboardModule} from './dashboard/dashboard.module';
 import {HTTP_INTERCEPTORS, HttpClientModule, HttpClientXsrfModule} from "@angular/common/http";
 import {FormsModule} from "@angular/forms";
-import {HomeService} from "./home/home.service";
-import {ClientsService} from "./clients/clients.service";
 import {HttpXsrfInterceptor} from "./HttpXsrfInterceptor";
+import {HttpAuthInterceptor} from "./HttpAuthInterceptor";
+import {ErrorInterseptor} from "./ErrorInterseptor";
+import {HeaderComponent} from "./header/header.component";
+import {DashboardComponent} from "./dashboard/dashboard.component";
+import {SidebarModule} from "./dashboard/sidebar/sidebar.module";
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
+    HeaderComponent,
     AuthComponent,
-    DashboardComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
     AppRoutingModule,
-    DashboardModule,
-    HttpClientXsrfModule
+    HttpClientXsrfModule,
+    SidebarModule,
+    NgbModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HttpXsrfInterceptor, multi: true},
+    { provide: HTTP_INTERCEPTORS, useClass: HttpAuthInterceptor, multi: true},
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterseptor, multi: true},
     AuthService,
-    HomeService,
-    ClientsService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,6 +1,6 @@
 package ru.monsterdev.domofon.exceptions;
 
-public class CustomException extends Exception {
+public class CustomException extends RuntimeException {
 
   public CustomException() {
     super();

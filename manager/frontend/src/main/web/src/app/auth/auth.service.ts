@@ -24,7 +24,6 @@ export class AuthService {
       headers: new HttpHeaders().set('Content-Type', 'application/json'), observe: 'response'
     }).pipe(
       map((response) => {
-        console.log(response);
         let jwtToken = response.body['token'];
         if (jwtToken) {
           localStorage.setItem("jwtToken", jwtToken)
@@ -33,11 +32,19 @@ export class AuthService {
     );
   }
 
+  logout() {
+    localStorage.removeItem("jwtToken");
+  }
+
   /**
    * Возвращает true, если пользователь прошел аутентификацию
    * @returns true/false
    */
   public isAuthenticated(): boolean {
     return localStorage.getItem("jwtToken") != null;
+  }
+
+  public getJwtToken(): string {
+    return localStorage.getItem("jwtToken");
   }
 }

@@ -10,11 +10,11 @@ import {Router} from "@angular/router";
 })
 export class AuthComponent implements OnInit {
   model: any = {};
+  submitted: boolean = false;
+  hasError: boolean = false;
+  errorMsg: string = '';
 
-  constructor(
-    public auth: AuthService,
-    public router: Router
-  ) {
+  constructor(private auth: AuthService, private router: Router) {
   }
 
   ngOnInit() {
@@ -23,13 +23,17 @@ export class AuthComponent implements OnInit {
   }
 
   signin() {
+    this.submitted = true;
+    this.hasError = false;
+
     this.auth.login(this.model.username, this.model.password, this.model.rememberMe)
     .subscribe(
       data => {
         this.router.navigate(["/dashboard"]);
       },
-      error => {
-        //
+      errorResponse => {
+        this.hasError = true;
+        this.errorMsg = errorResponse.error.msg;
       });
   }
 }

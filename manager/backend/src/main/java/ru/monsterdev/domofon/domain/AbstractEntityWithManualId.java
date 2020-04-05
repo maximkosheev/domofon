@@ -11,9 +11,17 @@ import javax.persistence.MappedSuperclass;
  * @param <T>
  */
 @MappedSuperclass
-public abstract class AbstractEntityWithManualId<T> {
+public abstract class AbstractEntityWithManualId<T> extends AbstractDomain {
   @Id
   private T id;
+
+  public T getId() {
+    return id;
+  }
+
+  public void setId(T id) {
+    this.id = id;
+  }
 
   public boolean isNew() {
     return id == null;

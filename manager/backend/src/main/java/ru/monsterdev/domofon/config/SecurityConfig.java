@@ -8,12 +8,14 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 import ru.monsterdev.domofon.domain.OpRole;
-import ru.monsterdev.domofon.security.JwtConfigurer;
+import ru.monsterdev.domofon.security.JwtTokenFilter;
 import ru.monsterdev.domofon.security.JwtTokenProvider;
 
 @Configuration
@@ -24,7 +26,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   private RestAuthenticationEntryPoint restAuthenticationEntryPoint;
 
   @Autowired
-  private JwtTokenProvider jwtTokenProvider;
+  private JwtTokenFilter jwtTokenFilter;
 
   @Bean
   public PasswordEncoder passwordEncoder() {
@@ -50,8 +52,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     http.httpBasic().disable();
-    http
-        .csrf()
+    http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+    http.csrf()
         .csrfTokenRepository(csrfTokenRepository());
     http.cors();
     http.exceptionHandling();
@@ -59,9 +61,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .authorizeRequests()
         .antMatchers(HttpMethod.OPTIONS).permitAll()
         .antMatchers("/api/v1/home/version", "/api/v1/auth/login").permitAll()
-        .antMatchers("/api/v1/manager").hasRole(OpRole.ROLE_MANAGER)
+        .antMatchers("/api/v1/**").hasRole(OpRole.ROLE_MANAGER)
         .anyRequest().authenticated();
-    http.apply(new JwtConfigurer(jwtTokenProvider));
+    http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
     http.logout();
   }
 }

@@ -11,13 +11,21 @@ import javax.persistence.MappedSuperclass;
  * @param <T>
  */
 @MappedSuperclass
-public abstract class AbstractEntity<T> {
+public abstract class AbstractEntity<T> extends AbstractDomain {
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "default_gen")
   private T id;
 
   public boolean isNew() {
     return id == null;
+  }
+
+  public T getId() {
+    return id;
+  }
+
+  public void setId(T id) {
+    this.id = id;
   }
 
   @Override

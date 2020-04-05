@@ -1,0 +1,35 @@
+.module-pane {
+  padding: 0px;
+}
+
+.card-toolbar {
+  margin-bottom: 10px;
+}
+
+.btn-tools {
+  margin-right: 10px;
+}
+
+.table > thead > tr > th {
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #9A9A9A;
+  font-weight: 400;
+  vertical-align: middle;
+}
+
+.green-checked {
+  color: green;
+}
+
+.green-checked:before{
+  content:"\f058"
+}
+
+.red-minus {
+  color: red;
+}
+
+.red-minus:before {
+  content:"\f056"
+}
