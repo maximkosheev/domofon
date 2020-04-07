@@ -1,29 +1,14 @@
 .base-layout {
-  width: 100%;
-  height: 100%;
-  &__header {
-    width: 100%;
-    height: 72px;
+  &__navbar {
     background-color: #23798b;
-    &__logo {
-      width: 250px;
-      height: 72px;
-      background-color: white;
-      justify-content: center;
-      align-items: center;
-      display: flex;
-    }
-    &__title {
-      padding: 0.5em 0 0.5em 1em;
+    &__profile {
+      color: white;
     }
   }
-
-  &__content {
-    position: absolute;
-    top: 72px;
-    bottom: 0px;
-    width: 100%;
-    height: auto;
-    background-color: #dee4ee;
+  &__main {
+    min-height: 100%;
+    height: 100%;
+    padding-left: 0;
+    padding-right: 0;
   }
 }

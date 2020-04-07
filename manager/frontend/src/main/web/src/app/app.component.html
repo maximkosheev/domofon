@@ -1,18 +1,14 @@
-<div class="p-grid p-nogutter base-layout">
-  <!-- Логотоп и header приложения -->
-  <div class="p-grid p-nogutter base-layout__header">
-    <div class="p-col-fixed base-layout__header__logo">
-      <a routerLink="/">
-        <img src="/assets/img/logo.svg">
-      </a>
-    </div>
-    <div class="p-col base-layout__header__title">
-      <app-header></app-header>
-    </div>
-  </div>
-
-  <!-- Основная часть окна -->
-  <div class="p-grid p-nogutter base-layout__content">
-    <router-outlet></router-outlet>
-  </div>
+<nav class="navbar navbar-dark sticky-top flex-md-nowrap p-0 base-layout__navbar">
+  <a class="navbar-brand col-sm-3 col-md-2 mr-0 base-layout__navbar_brand" routerLink="/">
+    ООО "ЦИФРАЛ-СБ"
+  </a>
+  <span class="pl-3 w-100">Система учета домофонной компании</span>
+  <ul class="navbar-nav px-3">
+    <li class="nav-item text-nowrap">
+      <a class="nav-link base-layout__navbar__profile" href="#">Вход</a>
+    </li>
+  </ul>
+</nav>
+<div class="container-fluid base-layout__main">
+  <router-outlet></router-outlet>
 </div>
