@@ -1,3 +1,4 @@
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {AuthService} from "./auth.service";
 import {Router} from "@angular/router";
@@ -9,31 +10,40 @@ import {Router} from "@angular/router";
   encapsulation: ViewEncapsulation.None
 })
 export class AuthComponent implements OnInit {
-  model: any = {};
-  submitted: boolean = false;
-  hasError: boolean = false;
-  errorMsg: string = '';
+  loginForm: FormGroup;
+  isSubmitted: boolean;
+  hasErrors: boolean;
+  errorMsg: string;
 
-  constructor(private auth: AuthService, private router: Router) {
+  constructor(private auth: AuthService, private router: Router, private formBuilder: FormBuilder) {
   }
 
   ngOnInit() {
-    this.model.rememberMe = true;
+    this.loginForm = this.formBuilder.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required]
+    })
+
     this.auth.init().subscribe();
   }
 
-  signin() {
-    this.submitted = true;
-    this.hasError = false;
+  get formControls() {
+    return this.loginForm.controls;
+  }
 
-    this.auth.login(this.model.username, this.model.password, this.model.rememberMe)
+  signIn() {
+    this.isSubmitted = true;
+    if (this.loginForm.invalid) {
+      return;
+    }
+    this.auth.login(this.loginForm.value)
     .subscribe(
       data => {
         this.router.navigate(["/dashboard"]);
       },
       errorResponse => {
-        this.hasError = true;
-        this.errorMsg = errorResponse.error.msg;
+        this.hasErrors = true;
+        this.errorMsg = errorResponse.error.message;
       });
   }
 }

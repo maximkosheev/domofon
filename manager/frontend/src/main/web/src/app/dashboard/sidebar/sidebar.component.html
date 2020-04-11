@@ -1,15 +1,17 @@
-<div class="sidebar-wrapper">
-    <div class="logo">
-        <a href="#" class="simple-text">
-            ООО "Цифрал-СБ"
+<nav class="col-md-2 d-none d-md-block bg-light sidebar">
+  <div class="sidebar__content">
+    <ul class="nav flex-column">
+      <li *ngFor="let menuItem of menuItems" class="nav-link">
+        <a class="nav-link sidebar__content__link" [routerLink]="[menuItem.path]" routerLinkActive="active">
+          <span [attr.data-feather]="[menuItem.icon]"></span>{{menuItem.title}}
         </a>
-    </div>
-    <ul class="menu-items">
-        <li *ngFor="let menuItem of menuItems" class="{{menuItem.class}}" routerLinkActive="active">
-            <a [routerLink]="[menuItem.path]">
-                <i class="{{menuItem.icon}}"></i>
-                <p>{{menuItem.title}}</p>
-            </a>
-        </li> 
+      </li>
     </ul>
-</div>  
+    <h6 class="d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+      <span>Сохраненные отчеты</span>
+      <a class="d-flex align-items-center text-muted" href="#">
+        <i data-feather="plus-circle"></i>
+      </a>
+    </h6>
+  </div>
+</nav>

@@ -1,7 +1,26 @@
-
 <div class="outlet-content">
-<form class="form-signin">
-  login works
-</form>
+  <form [formGroup]="loginForm" class="form-signin" (ngSubmit)="signIn()">
+    <h1 class="h6 mb-3 font-weight-normal">Для продолжения необходимо войти</h1>
+    <div *ngIf="hasErrors" class="alert alert-danger" role="alert">
+      {{errorMsg}}
+    </div>
+    <div *ngIf="isSubmitted && formControls.username.errors" class="help-block">
+      <div *ngIf="formControls.username.errors.required">Имя пользователя является обязательным полем</div>
+    </div>
+    <p [ngClass]="{'has-error' : isSubmitted && formControls.username.errors}">
+      <label for="login" class="sr-only">Имя пользователя</label>
+      <input formControlName="username" type="text" id="login" class="form-control mb-2" required autofocus
+             placeholder="Имя пользователя"/>
+    </p>
 
+    <div *ngIf="isSubmitted && formControls.password.errors" class="help-block">
+      <div *ngIf="formControls.password.errors.required">Пароль является обязательным полем</div>
+    </div>
+    <p [ngClass]="{'has-error' : isSubmitted && formControls.password.errors}">
+      <label for="password" class="sr-only">Пароль</label>
+      <input formControlName="password" type="password" id="password" class="form-control mb-2" required
+             placeholder="Пароль"/>
+    </p>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
+  </form>
 </div>

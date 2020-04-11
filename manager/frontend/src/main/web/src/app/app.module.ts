@@ -5,7 +5,7 @@ import {AppComponent} from './app.component';
 import {AuthComponent} from './auth/auth.component';
 import {AuthService} from './auth/auth.service';
 import {HTTP_INTERCEPTORS, HttpClientModule, HttpClientXsrfModule} from "@angular/common/http";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpXsrfInterceptor} from "./HttpXsrfInterceptor";
 import {HttpAuthInterceptor} from "./HttpAuthInterceptor";
 import {ErrorInterseptor} from "./ErrorInterseptor";
@@ -26,6 +26,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     BrowserModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     HttpClientXsrfModule,
     SidebarModule,
