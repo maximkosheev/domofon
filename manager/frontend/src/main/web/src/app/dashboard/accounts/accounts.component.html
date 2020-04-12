@@ -1,17 +1,11 @@
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-  <h1 class="h2">Dashboard</h1>
-  <div class="btn-toolbar mb-2 mb-md-0">
-    <div class="btn-group mr-2">
-      <button class="btn btn-sm btn-outline-secondary">Share</button>
-      <button class="btn btn-sm btn-outline-secondary">Export</button>
-    </div>
-    <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
-      <span data-feather="calendar"></span>
-      This week
-    </button>
-  </div>
+<h1 class="h2">Клиенты</h1>
+<div class="btn-toolbar mb-2 mb-md-0 component-toolbar">
+  <input type="search" id="search" class="form-control form-control-sm component-toolbar__item component-toolbar__search" placeholder="Лицевой счет"/>
+  <button class="btn btn-sm btn-outline-secondary component-toolbar__item" placement="top"  ngbTooltip="Добавить"><span data-feather="user-plus"></span></button>
+  <button class="btn btn-sm btn-outline-secondary component-toolbar__item" placement="top"  ngbTooltip="Редактировать"><span data-feather="edit"></span></button>
+  <button class="btn btn-sm btn-outline-secondary component-toolbar__item" placement="top"  ngbTooltip="Удалить"><span data-feather="user-minus"></span></button>
+  <button class="btn btn-sm btn-outline-secondary component-toolbar__item" placement="top"  ngbTooltip="Экспорт в Excel"><span data-feather="external-link"></span></button>
 </div>
-<h2>Section title</h2>
 <div class="table-responsive">
   <table class="table table-striped table-sm">
     <thead>

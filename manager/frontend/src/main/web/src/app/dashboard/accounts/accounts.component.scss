@@ -1,35 +1,13 @@
-.module-pane {
-  padding: 0px;
-}
-
-.card-toolbar {
-  margin-bottom: 10px;
-}
-
-.btn-tools {
-  margin-right: 10px;
-}
-
-.table > thead > tr > th {
-  font-size: 12px;
-  text-transform: uppercase;
-  color: #9A9A9A;
-  font-weight: 400;
-  vertical-align: middle;
-}
-
-.green-checked {
-  color: green;
-}
-
-.green-checked:before{
-  content:"\f058"
-}
-
-.red-minus {
-  color: red;
-}
-
-.red-minus:before {
-  content:"\f056"
+.component-toolbar {
+  &__item {
+    margin-right: 5px;
+  }
+  &__search {
+    width: auto;
+    border: solid 1px #6c757d;;
+  }
+  .feather {
+    width: 16px;
+    height: 16px;
+  }
 }

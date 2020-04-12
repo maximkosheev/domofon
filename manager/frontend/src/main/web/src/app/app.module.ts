@@ -9,18 +9,14 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpXsrfInterceptor} from "./HttpXsrfInterceptor";
 import {HttpAuthInterceptor} from "./HttpAuthInterceptor";
 import {ErrorInterseptor} from "./ErrorInterseptor";
-import {HeaderComponent} from "./header/header.component";
 import {DashboardComponent} from "./dashboard/dashboard.component";
 import {SidebarModule} from "./dashboard/sidebar/sidebar.module";
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
     AuthComponent,
-    DashboardComponent
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,
@@ -28,9 +24,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    HttpClientXsrfModule,
     SidebarModule,
-    NgbModule
+    HttpClientXsrfModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HttpXsrfInterceptor, multi: true},

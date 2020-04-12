@@ -3,6 +3,7 @@ import {RouterModule, Routes} from "@angular/router";
 import {AuthGuardService as AuthGuard} from "../auth/auth-guard.service";
 import {AccountsComponent} from "./accounts/accounts.component";
 import {HelpComponent} from "./help/help.component";
+import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 
 const routes: Routes = [
   {path: '', component: AccountsComponent},
@@ -14,10 +15,11 @@ const routes: Routes = [
 @NgModule({
   imports: [
     RouterModule.forChild(routes),
+    NgbModule
   ],
   declarations: [
     AccountsComponent,
-    HelpComponent
+    HelpComponent,
   ],
   exports: [],
   providers: [

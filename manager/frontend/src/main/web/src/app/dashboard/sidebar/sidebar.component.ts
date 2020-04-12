@@ -1,5 +1,4 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
-import * as Feather from 'feather-icons';
+import {Component, OnInit} from '@angular/core';
 
 declare interface RouteInfo {
   path: string;
@@ -19,16 +18,11 @@ export const ROUTES: RouteInfo[] = [
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss']
 })
-export class SidebarComponent implements OnInit, AfterViewInit {
+export class SidebarComponent implements OnInit {
   menuItems: any[]; 
   constructor() { }
 
   ngOnInit() {
     this.menuItems = ROUTES.filter(menuItem => menuItem); 
   }
-
-  ngAfterViewInit(): void {
-    Feather.replace();
-  }
-
 }
