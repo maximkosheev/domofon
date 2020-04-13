@@ -11,12 +11,14 @@ import {HttpAuthInterceptor} from "./HttpAuthInterceptor";
 import {ErrorInterseptor} from "./ErrorInterseptor";
 import {DashboardComponent} from "./dashboard/dashboard.component";
 import {SidebarModule} from "./dashboard/sidebar/sidebar.module";
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AuthComponent,
     DashboardComponent,
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,

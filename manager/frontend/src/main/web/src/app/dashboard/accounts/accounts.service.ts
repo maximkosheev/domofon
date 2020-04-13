@@ -15,8 +15,8 @@ export class AccountsService {
   getClients(): Observable<Account[]> {
     return this.httpClient.get<Account[]>(AppSettings.API_ENDPOINT + "/accounts/all",
       {
-        params: new HttpParams()
-        .set("account", "1"),
+        /*params: new HttpParams()
+        .set("account", "1"),*/
         responseType: "json"
       }
     ).pipe(map(

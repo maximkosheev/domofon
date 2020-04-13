@@ -4,6 +4,8 @@ import {AuthGuardService as AuthGuard} from "../auth/auth-guard.service";
 import {AccountsComponent} from "./accounts/accounts.component";
 import {HelpComponent} from "./help/help.component";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
+import {CommonModule} from "@angular/common";
+import {FormsModule} from "@angular/forms";
 
 const routes: Routes = [
   {path: '', component: AccountsComponent},
@@ -14,6 +16,8 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
+    CommonModule,
+    FormsModule,
     RouterModule.forChild(routes),
     NgbModule
   ],
