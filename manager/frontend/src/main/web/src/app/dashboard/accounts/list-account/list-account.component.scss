@@ -1,0 +1,22 @@
+.component-toolbar {
+  &__item {
+    margin-right: 5px;
+  }
+  &__search {
+    width: auto;
+    border: solid 1px #6c757d;;
+  }
+  .feather {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.checkbox-column {
+  vertical-align: middle;
+}
+
+.checkbox-column input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+}

@@ -1,11 +1,11 @@
 export interface Account {
+  id: number;
   hasDevice: boolean;
   switchOff: boolean;
   account: string;
   fio: string;
   phone: string;
-  streetId: number;
-  street: string;
+  streetName: string;
   house: string;
   letter: string;
   building: string;
