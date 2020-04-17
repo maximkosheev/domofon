@@ -1,9 +1,8 @@
 package ru.monsterdev.domofon.controllers;
 
-import java.util.List;
-import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.monsterdev.domofon.domain.OpAccount;
+import ru.monsterdev.domofon.domain.view.ViewAccount;
 import ru.monsterdev.domofon.dto.AccountRequestDto;
 import ru.monsterdev.domofon.dto.AccountResponseDto;
 import ru.monsterdev.domofon.dto.ResponseMsgDto;
@@ -35,13 +35,11 @@ public class AccountControllerV1 {
   private Mapper<OpAccount, AccountResponseDto> responseMapper;
 
   @GetMapping("/all")
-  public ResponseEntity<List<AccountResponseDto>> getFilteredAccounts(AccountsFilterObject filterObject) {
+  public ResponseEntity<Page<ViewAccount>> getFilteredAccounts(AccountsFilterObject filterObject) {
     try {
       log.info("Конечная точка /api/v1/accounts/all");
-      return ResponseEntity.ok(accountService.getFilteredAccounts(filterObject)
-          .stream()
-          .map(dbAccount -> responseMapper.toDto(dbAccount))
-          .collect(Collectors.toList()));
+      filterObject.setPage(filterObject.getPage() - 1);
+      return ResponseEntity.ok(accountService.getFilteredAccounts(filterObject));
     } catch (Exception ex) {
       log.error("", ex);
       throw new CustomException("Ошибка получения списка аккаунтов, смотри журнал для подробностей");

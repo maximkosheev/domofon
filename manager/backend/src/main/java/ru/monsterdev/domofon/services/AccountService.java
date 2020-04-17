@@ -2,6 +2,7 @@ package ru.monsterdev.domofon.services;
 
 import org.springframework.data.domain.Page;
 import ru.monsterdev.domofon.domain.OpAccount;
+import ru.monsterdev.domofon.domain.view.ViewAccount;
 import ru.monsterdev.domofon.dto.AccountRequestDto;
 import ru.monsterdev.domofon.exceptions.AccountDoesNotExistException;
 import ru.monsterdev.domofon.exceptions.AccountExistException;
@@ -15,7 +16,7 @@ public interface AccountService {
    * @param filterObject критерии фильрации и сортировки
    * @return список аккаунтов
    */
-  Page<OpAccount> getFilteredAccounts(AccountsFilterObject filterObject);
+  Page<ViewAccount> getFilteredAccounts(AccountsFilterObject filterObject);
 
   /**
    * Создает новый аккаунт

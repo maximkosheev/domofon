@@ -10,7 +10,7 @@ import org.springframework.data.domain.Sort.Direction;
 @ToString
 public class PaginationObject {
   protected Integer page = 0;
-  protected Integer size = 25;
+  protected Integer pageSize = 25;
   protected String sortBy;
   protected Direction direction = Direction.ASC;
 }

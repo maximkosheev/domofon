@@ -13,13 +13,15 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import ru.monsterdev.domofon.domain.OpAccount;
 import ru.monsterdev.domofon.domain.OpDomofon;
-import ru.monsterdev.domofon.domain.QOpAccount;
+import ru.monsterdev.domofon.domain.view.QViewAccount;
+import ru.monsterdev.domofon.domain.view.ViewAccount;
 import ru.monsterdev.domofon.dto.AccountRequestDto;
 import ru.monsterdev.domofon.exceptions.AccountDoesNotExistException;
 import ru.monsterdev.domofon.exceptions.AccountExistException;
 import ru.monsterdev.domofon.exceptions.DeviceNotFoundException;
 import ru.monsterdev.domofon.filters.AccountsFilterObject;
 import ru.monsterdev.domofon.repositories.OpAccountRepository;
+import ru.monsterdev.domofon.repositories.view.ViewAccountRepository;
 import ru.monsterdev.domofon.services.AccountService;
 import ru.monsterdev.domofon.services.DeviceService;
 
@@ -31,11 +33,14 @@ public class AccountServiceImpl implements AccountService {
   private OpAccountRepository repository;
 
   @Autowired
+  private ViewAccountRepository viewRepository;
+
+  @Autowired
   private DeviceService deviceService;
 
   private Predicate getFilterPredicate(AccountsFilterObject filterObject) {
     BooleanBuilder builder = new BooleanBuilder();
-    QOpAccount qAccount = QOpAccount.opAccount;
+    QViewAccount qAccount = QViewAccount.viewAccount;
 
     if (filterObject.getAccount() != null) {
       builder.and(qAccount.account.like(filterObject.getAccount() + '%'));
@@ -45,10 +50,10 @@ public class AccountServiceImpl implements AccountService {
   }
 
   @Override
-  public Page<OpAccount> getFilteredAccounts(AccountsFilterObject filterObject) {
+  public Page<ViewAccount> getFilteredAccounts(AccountsFilterObject filterObject) {
     Predicate predicate = getFilterPredicate(filterObject);
-    return repository.findAll(predicate, PageRequest.of(filterObject.getPage(),
-        filterObject.getSize(),
+    return viewRepository.findAll(predicate, PageRequest.of(filterObject.getPage(),
+        filterObject.getPageSize(),
         filterObject.getDirection(),
         Optional.ofNullable(filterObject.getSortBy()).orElse("account")));
   }
