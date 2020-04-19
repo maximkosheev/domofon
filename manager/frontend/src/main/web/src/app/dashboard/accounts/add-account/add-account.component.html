@@ -1,1 +1,133 @@
-<p>add-account works!</p>
+<h1 class="h2">Новый клиент</h1>
+<div *ngIf="apiError" class="alert alert-danger">Ошибка:{{apiError}}</div>
+<form [formGroup]="accountForm">
+  <!-- Лицевой счет -->
+  <div class="form-group row">
+    <label for="account" class="col-form-label col-sm-2">Лицевой счет</label>
+    <div class="col-sm-5">
+      <input type="text" id="account" class="form-control" formControlName="account"
+             placeholder="Номер лицевого счета"/>
+    </div>
+  </div>
+
+  <!-- Улица -->
+  <div class="form-group row">
+    <label for="street" class="col-form-label col-sm-2">Улица</label>
+    <div class="col-sm-5">
+      <input type="text" id="street" class="form-control" formControlName="street"
+             placeholder="Улица"/>
+    </div>
+  </div>
+
+  <!-- Дом -->
+  <div class="form-group row">
+    <label for="house" class="col-form-label col-sm-2">Дом</label>
+    <div class="col-sm-1">
+      <input type="text" id="house" class="form-control" formControlName="house"/>
+    </div>
+  </div>
+
+  <!-- Буква -->
+  <div class="form-group row">
+    <label for="letter" class="col-form-label col-sm-2">Буква</label>
+    <div class="col-sm-1">
+      <input type="text" id="letter" class="form-control" formControlName="letter"/>
+    </div>
+  </div>
+
+  <!-- Корпус -->
+  <div class="form-group row">
+    <label for="building" class="col-form-label col-sm-2">Корпус</label>
+    <div class="col-sm-1">
+      <input type="text" id="building" class="form-control" formControlName="building"/>
+    </div>
+  </div>
+
+  <!-- Подъезд -->
+  <div class="form-group row">
+    <label for="porch" class="col-form-label col-sm-2">Подъезд</label>
+    <div class="col-sm-1">
+      <input type="text" id="porch" class="form-control" formControlName="porch"/>
+    </div>
+  </div>
+
+  <!-- Квартира -->
+  <div class="form-group row">
+    <label for="flat" class="col-form-label col-sm-2">Квартира</label>
+    <div class="col-sm-1">
+      <input type="text" id="flat" class="form-control" formControlName="flat"/>
+    </div>
+  </div>
+
+  <!-- ФИО -->
+  <div class="form-group row">
+    <label for="fio" class="col-form-label col-sm-2">ФИО</label>
+    <div class="col-sm-5">
+      <input type="text" id="fio" class="form-control" formControlName="fio"
+             placeholder="ФИО"/>
+    </div>
+  </div>
+
+  <!-- Наличие квартирного аппарата -->
+  <div class="form-group row">
+    <div class="col-sm-2"></div>
+    <div class="form-check col-sm-10 custom-form-check">
+      <input type="checkbox" id="hasDevice" class="form-check-input" formControlName="hasDevice">
+      <label class="form-check-label" for="hasDevice">Наличие квартирного аппарата</label>
+    </div>
+  </div>
+
+  <!-- Дата подключения -->
+  <div class="form-group row">
+    <label for="connectDate" class="col-form-label col-sm-2">Дата установки</label>
+    <div class="col-sm-2 input-group-append">
+      <input class="form-control" id="connectDate" formControlName="connectDate" ngbDatepicker #d="ngbDatepicker"/>
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"><i class="fa fa-calendar"
+                                                                                                 aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Телефон -->
+  <div class="form-group row">
+    <label for="phone" class="col-form-label col-sm-2">Телефон</label>
+    <div class="col-sm-2">
+      <input type="text" id="phone" class="form-control" formControlName="phone"
+             placeholder="Телефон"/>
+    </div>
+  </div>
+
+  <!-- Примечение -->
+  <div class="form-group row">
+    <label for="description" class="col-form-label col-sm-2">Примечание</label>
+    <div class="col-sm-5">
+      <textarea id="description" class="form-control" formControlName="description"
+                placeholder="Примечание"></textarea>
+    </div>
+  </div>
+
+  <!-- ФСБ -->
+  <div class="form-group row">
+    <div class="col-sm-2"></div>
+    <div class="form-check col-sm-10 custom-form-check">
+      <input type="checkbox" id="fsb" class="form-check-input" formControlName="fsb">
+      <label class="form-check-label" for="fsb">Договор с ФСБ</label>
+    </div>
+  </div>
+
+  <!-- Город -->
+  <div class="form-group row">
+    <div class="col-sm-2"></div>
+    <div class="form-check col-sm-10 custom-form-check">
+      <input type="checkbox" id="gorod" class="form-check-input" formControlName="gorod">
+      <label class="form-check-label" for="gorod">Передавать в город</label>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <button type="submit" class="btn btn-primary">Сохранить</button>
+    <button type="button" class="btn btn-secondary">Отмена</button>
+  </div>
+</form>

@@ -22,7 +22,7 @@ export class AuthComponent implements OnInit {
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
-    })
+    });
 
     this.auth.init().subscribe();
   }

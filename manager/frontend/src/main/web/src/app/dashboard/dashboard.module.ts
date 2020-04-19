@@ -5,7 +5,7 @@ import {AccountsComponent} from "./accounts/accounts.component";
 import {HelpComponent} from "./help/help.component";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {CommonModule} from "@angular/common";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { AddAccountComponent } from './accounts/add-account/add-account.component';
 import { ListAccountComponent } from './accounts/list-account/list-account.component';
 import {DashboardComponent} from "./dashboard.component";
@@ -25,6 +25,7 @@ const routes: Routes = [
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     RouterModule.forChild(routes),
     NgbModule
   ],
