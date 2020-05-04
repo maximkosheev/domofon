@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import {LOCALE_ID, NgModule} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {AuthComponent} from './auth/auth.component';
@@ -32,6 +32,7 @@ import {SidebarModule} from "./dashboard/sidebar/sidebar.module";
     { provide: HTTP_INTERCEPTORS, useClass: HttpAuthInterceptor, multi: true},
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterseptor, multi: true},
     AuthService,
+    {provide: LOCALE_ID, useValue: 'ru-RU'}
   ],
   bootstrap: [AppComponent]
 })

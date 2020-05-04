@@ -6,6 +6,7 @@ import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import ru.monsterdev.domofon.domain.OpDomofon;
 import ru.monsterdev.domofon.domain.QOpDomofon;
 import ru.monsterdev.domofon.exceptions.DeviceNotFoundException;
@@ -28,22 +29,22 @@ public class DeviceServiceImpl implements DeviceService {
     } else {
       builder.and(qDomofon.street.isNull());
     }
-    if (house != null) {
+    if (!StringUtils.isEmpty(house)) {
       builder.and(qDomofon.house.eq(house));
     } else {
       builder.and(qDomofon.house.isNull());
     }
-    if (letter != null) {
+    if (!StringUtils.isEmpty(letter)) {
       builder.and(qDomofon.letter.eq(letter));
     } else {
       builder.and(qDomofon.letter.isNull());
     }
-    if (building != null) {
+    if (!StringUtils.isEmpty(building)) {
       builder.and(qDomofon.building.eq(building));
     } else {
       builder.and(qDomofon.building.isNull());
     }
-    if (porch != null) {
+    if (!StringUtils.isEmpty(porch)) {
       builder.and(qDomofon.porch.eq(porch));
     } else {
       builder.and(qDomofon.porch.isNull());
@@ -53,10 +54,7 @@ public class DeviceServiceImpl implements DeviceService {
   }
 
   @Override
-  public OpDomofon getDomofonByAddress(Long streetId, String house, String letter, String building, String porch)
-      throws DeviceNotFoundException {
-    Optional<OpDomofon> optDomofon = domofonRepository.findOne(getFilterPredicate(streetId, house, letter, building,
-        porch));
-    return optDomofon.orElseThrow(DeviceNotFoundException::new);
+  public Optional<OpDomofon> getDomofonByAddress(Long streetId, String house, String letter, String building, String porch) {
+    return domofonRepository.findOne(getFilterPredicate(streetId, house, letter, building, porch));
   }
 }

@@ -87,6 +87,7 @@ comment on column op_domofon.mounting_dt is 'Дата установки';
 comment on column op_domofon.description is 'Примечание';
 
 alter table op_domofon add constraint fk_op_domofon_ref_street foreign key (street_id) references ref_street(id);
+alter table op_domofon add constraint uk_op_domofon unique (street_id, house, letter, building, porch);
 
 ---
 --- Создание таблицы "Акаунты"
@@ -127,3 +128,4 @@ comment on column op_account.gorod is 'Признак передачи данн�
 comment on column op_account.description is 'Примечание';
 
 alter table op_account add constraint fk_op_account_op_domofon foreign key(domofon_id) references op_domofon(id);
+alter table op_account add constraint uk_op_account unique (domofon_id, flat);

@@ -31,12 +31,16 @@ export class AccountsService {
     return params;
   }
 
-  getClients(pageable:PageRequest): Observable<PageResponse<Account>> {
+  getAccounts(pageable:PageRequest): Observable<PageResponse<Account>> {
     return this.httpClient.get<PageResponse<Account>>(AppSettings.API_ENDPOINT + "/accounts/all",
       {
         params: this.getRequestFilterPredicate(pageable),
         responseType: "json"
       }
     );
+  }
+
+  addAccount(account: Account): Observable<Account> {
+    return this.httpClient.post<Account>(AppSettings.API_ENDPOINT + "/accounts/add", account, {responseType: "json"});
   }
 }

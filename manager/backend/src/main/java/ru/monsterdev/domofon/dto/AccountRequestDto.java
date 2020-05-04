@@ -1,11 +1,12 @@
 package ru.monsterdev.domofon.dto;
 
+import java.time.LocalDate;
 import lombok.Data;
 
 @Data
 public class AccountRequestDto extends AbstractDto {
   private String account;
-  private Long streetId;
+  private Long street;
   private String house;
   private String letter;
   private String building;
@@ -17,4 +18,13 @@ public class AccountRequestDto extends AbstractDto {
   private Boolean hasDevice;
   private Boolean switchOff;
   private String description;
+  private DomofonDate connectDate;
+
+  public LocalDate getConnectDate() {
+    if (connectDate == null) {
+      return null;
+    } else {
+      return LocalDate.of(connectDate.getYear(), connectDate.getMonth(), connectDate.getDay());
+    }
+  }
 }

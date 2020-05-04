@@ -11,13 +11,16 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import ru.monsterdev.domofon.domain.OpAccount;
 import ru.monsterdev.domofon.domain.OpDomofon;
+import ru.monsterdev.domofon.domain.QOpAccount;
 import ru.monsterdev.domofon.domain.view.QViewAccount;
 import ru.monsterdev.domofon.domain.view.ViewAccount;
 import ru.monsterdev.domofon.dto.AccountRequestDto;
 import ru.monsterdev.domofon.exceptions.AccountDoesNotExistException;
 import ru.monsterdev.domofon.exceptions.AccountExistException;
+import ru.monsterdev.domofon.exceptions.AccountMutiplyException;
 import ru.monsterdev.domofon.exceptions.DeviceNotFoundException;
 import ru.monsterdev.domofon.filters.AccountsFilterObject;
 import ru.monsterdev.domofon.repositories.OpAccountRepository;
@@ -49,6 +52,18 @@ public class AccountServiceImpl implements AccountService {
     return builder;
   }
 
+  private boolean checkAccountExists(OpDomofon domofon, String flat) {
+    BooleanBuilder builder = new BooleanBuilder();
+    QOpAccount qOpAccount = QOpAccount.opAccount;
+    builder.and(qOpAccount.device.eq(domofon));
+    if (!StringUtils.isEmpty(flat)) {
+      builder.and(qOpAccount.flat.equalsIgnoreCase(flat));
+    } else {
+      builder.and(qOpAccount.flat.isNull());
+    }
+    return repository.exists(builder);
+  }
+
   @Override
   public Page<ViewAccount> getFilteredAccounts(AccountsFilterObject filterObject) {
     Predicate predicate = getFilterPredicate(filterObject);
@@ -66,16 +81,28 @@ public class AccountServiceImpl implements AccountService {
 
   @Override
   public String createAccount(AccountRequestDto newAccount) throws
-      AccountExistException, DeviceNotFoundException {
+      AccountExistException, AccountMutiplyException, DeviceNotFoundException {
     try {
       // проверка наличия домофонного аппарата по указанному адресу
-      OpDomofon opDomofon = deviceService.getDomofonByAddress(newAccount.getStreetId(), newAccount.getHouse(),
+      Optional<OpDomofon> opOpDomofon = deviceService.getDomofonByAddress(newAccount.getStreet(), newAccount.getHouse(),
           newAccount.getLetter(), newAccount.getBuilding(), newAccount.getPorch());
+      if (!opOpDomofon.isPresent()) {
+        log.error("По адресу (улица, дом, буква, корпус, подъезд) ({}, {}, {}, {}, {}) домофонный аппарат не найнен",
+            newAccount.getStreet(), newAccount.getHouse(), newAccount.getLetter(), newAccount.getBuilding(),
+            newAccount.getPorch());
+        throw new DeviceNotFoundException();
+      }
+      if (checkAccountExists(opOpDomofon.get(), newAccount.getFlat())) {
+        log.error("По указанному адресу (домофон, квартира) ({}, {}) уже зарегистрирован лицевой счет",
+            opOpDomofon.get(), newAccount.getFlat());
+        throw new AccountMutiplyException();
+      }
       OpAccount opAccount = new OpAccount();
       opAccount.setAccount(newAccount.getAccount());
-      opAccount.setDevice(opDomofon);
+      opAccount.setDevice(opOpDomofon.get());
       opAccount.setFio(newAccount.getFio());
       opAccount.setFlat(newAccount.getFlat());
+      opAccount.setConnectDate(newAccount.getConnectDate());
       opAccount.setCreateDate(LocalDate.now());
       opAccount.setFsb(newAccount.getFsb());
       opAccount.setGorod(newAccount.getGorod());
@@ -84,16 +111,12 @@ public class AccountServiceImpl implements AccountService {
       repository.save(opAccount);
     } catch (DataIntegrityViolationException ex) {
       if (ex.getCause() instanceof ConstraintViolationException) {
-        log.error("Лицевой счет {} уже существует", newAccount.getAccount());
+        log.error("Лицевой счет {} уже существует, либо по данному адресу есть зарегистрированный лицевой счет",
+            newAccount.getAccount());
         throw new AccountExistException(newAccount.getAccount());
       } else {
         throw ex;
       }
-    } catch (DeviceNotFoundException ex) {
-      log.error("По адресу (улица, дом, буква, корпус, подъезд) {}, {}, {}, {}, {} домофонный аппарат не найнен",
-          newAccount.getStreetId(), newAccount.getHouse(), newAccount.getLetter(), newAccount.getBuilding(),
-          newAccount.getPorch());
-      throw ex;
     }
     return newAccount.getAccount();
   }

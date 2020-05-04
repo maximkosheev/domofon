@@ -1,20 +1,21 @@
 export interface Account {
   id: number;
-  hasDevice: boolean;
-  switchOff: boolean;
   account: string;
-  fio: string;
-  phone: string;
-  streetName: string;
+  streetId: number;
+  street: string;
   house: string;
   letter: string;
   building: string;
   porch: string;
   flat: string;
-  connectDate: Date;
-  disconnectDate: Date;
-  createDate: Date;
+  fio: string;
+  hasDevice: boolean;
+  connectDate: string;
+  phone: string;
+  description: string;
   fsb: string;
   gorod: boolean;
-  description: string;
+  disconnectDate: string;
+  createDate: string;
+  switchOff: boolean;
 }

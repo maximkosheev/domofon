@@ -28,7 +28,7 @@ public class AccountServiceTest {
   public void addAccount_mustThrowDeviceNotFoundException() {
     AccountRequestDto newAccount = new AccountRequestDto();
     newAccount.setAccount("123");
-    newAccount.setStreetId(1L);
+    newAccount.setStreet(1L);
     newAccount.setBuilding("10");
     newAccount.setLetter("A");
     newAccount.setPorch("12");
@@ -44,7 +44,7 @@ public class AccountServiceTest {
   public void addAccount_mustSuccess() {
     AccountRequestDto newAccount = new AccountRequestDto();
     newAccount.setAccount("123");
-    newAccount.setStreetId(1L);
+    newAccount.setStreet(1L);
     newAccount.setHouse("10");
     newAccount.setLetter("A");
     newAccount.setFlat("13");
@@ -61,7 +61,7 @@ public class AccountServiceTest {
   public void addCount_shouldThrowAccountExistException() {
     AccountRequestDto newAccount1 = new AccountRequestDto();
     newAccount1.setAccount("123");
-    newAccount1.setStreetId(1L);
+    newAccount1.setStreet(1L);
     newAccount1.setHouse("10");
     newAccount1.setLetter("A");
     newAccount1.setFlat("13");
@@ -71,7 +71,7 @@ public class AccountServiceTest {
     accountService.createAccount(newAccount1);
     AccountRequestDto newAccount2 = new AccountRequestDto();
     newAccount2.setAccount("123");
-    newAccount2.setStreetId(1L);
+    newAccount2.setStreet(1L);
     newAccount2.setHouse("10");
     newAccount2.setLetter("A");
     newAccount2.setFlat("13");

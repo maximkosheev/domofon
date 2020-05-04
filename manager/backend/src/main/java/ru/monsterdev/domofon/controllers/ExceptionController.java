@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import ru.monsterdev.domofon.dto.ResponseMsgDto;
 import ru.monsterdev.domofon.exceptions.AccountExistException;
+import ru.monsterdev.domofon.exceptions.AccountMutiplyException;
 import ru.monsterdev.domofon.exceptions.CustomException;
 import ru.monsterdev.domofon.exceptions.DeviceNotFoundException;
 import ru.monsterdev.domofon.security.JwtAuthenticationException;
@@ -36,6 +37,12 @@ public class ExceptionController {
   @ExceptionHandler({AccountExistException.class})
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   public ResponseMsgDto accountExistHandler(AccountExistException ex) {
+    return new ResponseMsgDto(HttpStatus.BAD_REQUEST, ex.getClass().getName(), ex.getMessage());
+  }
+
+  @ExceptionHandler({AccountMutiplyException.class})
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  public ResponseMsgDto accountMultiplyHandler(AccountMutiplyException ex) {
     return new ResponseMsgDto(HttpStatus.BAD_REQUEST, ex.getClass().getName(), ex.getMessage());
   }
 

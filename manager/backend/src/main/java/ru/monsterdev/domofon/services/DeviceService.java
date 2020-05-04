@@ -1,7 +1,7 @@
 package ru.monsterdev.domofon.services;
 
+import java.util.Optional;
 import ru.monsterdev.domofon.domain.OpDomofon;
-import ru.monsterdev.domofon.exceptions.DeviceNotFoundException;
 
 public interface DeviceService {
 
@@ -13,8 +13,6 @@ public interface DeviceService {
    * @param building строение/корпус
    * @param porch подъезд
    * @return домофонный аппарат
-   * @throws DeviceNotFoundException выбрасывается, если по указанному адресу нет домофонного аппарата
    */
-  OpDomofon getDomofonByAddress(Long streetId, String house, String letter, String building, String porch)
-      throws DeviceNotFoundException;
+  Optional<OpDomofon> getDomofonByAddress(Long streetId, String house, String letter, String building, String porch);
 }

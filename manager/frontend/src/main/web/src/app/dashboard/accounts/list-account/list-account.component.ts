@@ -35,10 +35,8 @@ export class ListAccountComponent implements OnInit, AfterViewInit {
   }
 
   loadAccounts() {
-    console.log(this.accountFilter);
     this.pageRequest.filter.set("account", this.accountFilter);
-    console.log(this.pageRequest.filter.get("account"));
-    this.accountsService.getClients(this.pageRequest)
+    this.accountsService.getAccounts(this.pageRequest)
     .subscribe(
       data => {
         this.accounts = data.content;

@@ -1,29 +1,58 @@
 <h1 class="h2">Новый клиент</h1>
 <div *ngIf="apiError" class="alert alert-danger">Ошибка:{{apiError}}</div>
-<form [formGroup]="accountForm">
+<div *ngIf="apiSuccess" class="alert alert-success">{{apiSuccess}}</div>
+<form [formGroup]="accountForm" (ngSubmit)="onSubmit()">
   <!-- Лицевой счет -->
   <div class="form-group row">
-    <label for="account" class="col-form-label col-sm-2">Лицевой счет</label>
+    <label for="account" class="col-form-label col-sm-2">Лицевой счет*</label>
     <div class="col-sm-5">
-      <input type="text" id="account" class="form-control" formControlName="account"
-             placeholder="Номер лицевого счета"/>
+      <input type="text" id="account" class="form-control" [ngClass]="{'is-invalid': submitted && f.account.errors}"
+             formControlName="account"/>
+      <div *ngIf="submitted && f.account.errors" class="invalid-feedback">
+        <div *ngIf="f.account.errors.required">Поле 'Лицевой счет' должно быть заполнено</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Город -->
+  <div class="form-group row">
+    <label for="city" class="col-form-label col-sm-2">Город*</label>
+    <div class="col-sm-5">
+      <select id="city" class="form-control" [ngClass]="{'is-invalid': submitted && f.city.errors}"
+              formControlName="city" (change)="onCityChanged()">
+        <option [ngValue]="null" disabled>Выберете город</option>
+        <option *ngFor="let city of cities" [value]="city.id">{{city.name}}</option>
+      </select>
+      <div *ngIf="submitted && f.city.errors" class="invalid-feedback">
+        <div *ngIf="f.city.errors.required">Поле 'Город' должно быть заполнено</div>
+      </div>
     </div>
   </div>
 
   <!-- Улица -->
   <div class="form-group row">
-    <label for="street" class="col-form-label col-sm-2">Улица</label>
+    <label for="street" class="col-form-label col-sm-2">Улица*</label>
     <div class="col-sm-5">
-      <input type="text" id="street" class="form-control" formControlName="street"
-             placeholder="Улица"/>
+      <select id="street" class="form-control" [ngClass]="{'is-invalid': submitted && f.street.errors}"
+              formControlName="street">
+        <option [ngValue]="null" disabled>Выберете улицу</option>
+        <option *ngFor="let street of cityStreets" [value]="street.id">{{street.name}}</option>
+      </select>
+      <div *ngIf="submitted && f.street.errors" class="invalid-feedback">
+        <div *ngIf="f.street.errors.required">Поле 'Улица' должно быть заполнено</div>
+      </div>
     </div>
   </div>
 
   <!-- Дом -->
   <div class="form-group row">
-    <label for="house" class="col-form-label col-sm-2">Дом</label>
+    <label for="house" class="col-form-label col-sm-2">Дом*</label>
     <div class="col-sm-1">
-      <input type="text" id="house" class="form-control" formControlName="house"/>
+      <input type="text" id="house" class="form-control" [ngClass]="{'is-invalid': submitted && f.house.errors}"
+             formControlName="house"/>
+      <div *ngIf="submitted && f.house.errors" class="invalid-feedback">
+        <div *ngIf="f.house.errors.required">Поле 'Дом' должно быть заполнено</div>
+      </div>
     </div>
   </div>
 
@@ -61,10 +90,13 @@
 
   <!-- ФИО -->
   <div class="form-group row">
-    <label for="fio" class="col-form-label col-sm-2">ФИО</label>
+    <label for="fio" class="col-form-label col-sm-2">ФИО*</label>
     <div class="col-sm-5">
-      <input type="text" id="fio" class="form-control" formControlName="fio"
-             placeholder="ФИО"/>
+      <input type="text" id="fio" class="form-control" [ngClass]="{'is-invalid': submitted && f.fio.errors}"
+             formControlName="fio"/>
+      <div *ngIf="submitted && f.fio.errors" class="invalid-feedback">
+        <div *ngIf="f.fio.errors.required">Поле 'ФИО' должно быть заполнено</div>
+      </div>
     </div>
   </div>
 
@@ -80,12 +112,18 @@
   <!-- Дата подключения -->
   <div class="form-group row">
     <label for="connectDate" class="col-form-label col-sm-2">Дата установки</label>
-    <div class="col-sm-2 input-group-append">
-      <input class="form-control" id="connectDate" formControlName="connectDate" ngbDatepicker #d="ngbDatepicker"/>
-      <div class="input-group-append">
-        <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"><i class="fa fa-calendar"
-                                                                                                 aria-hidden="true"></i>
-        </button>
+    <div class="col-sm-2">
+      <div class="input-group-append" [ngClass]="{'is-invalid': submitted && f.connectDate.errors}">
+        <input class="form-control" id="connectDate" formControlName="connectDate" ngbDatepicker #d="ngbDatepicker"/>
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"><i
+            class="fa fa-calendar"
+            aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+      <div *ngIf="submitted && f.connectDate.errors" class="invalid-feedback">
+        <div *ngIf="f.connectDate.errors">Неверный формат поля 'Дата подключения' должен быть 'dd.mm.yyyy'</div>
       </div>
     </div>
   </div>
@@ -94,8 +132,7 @@
   <div class="form-group row">
     <label for="phone" class="col-form-label col-sm-2">Телефон</label>
     <div class="col-sm-2">
-      <input type="text" id="phone" class="form-control" formControlName="phone"
-             placeholder="Телефон"/>
+      <input type="text" id="phone" class="form-control" formControlName="phone"/>
     </div>
   </div>
 
@@ -103,8 +140,7 @@
   <div class="form-group row">
     <label for="description" class="col-form-label col-sm-2">Примечание</label>
     <div class="col-sm-5">
-      <textarea id="description" class="form-control" formControlName="description"
-                placeholder="Примечание"></textarea>
+      <textarea id="description" class="form-control" formControlName="description"></textarea>
     </div>
   </div>
 
